@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MobileRecharge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#6366F1'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-primary">📱 MobileRecharge</div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="dashboard.html" class="text-primary hover:text-accent px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                        <a href="recharge.html" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Recharge</a>
+                        <a href="plans.html" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Plans</a>
+                        <a href="history.html" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <div class="bg-gradient-to-r from-primary to-accent text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold">Welcome back, User!</h1>
+            <p class="text-lg opacity-90">Manage your mobile recharges efficiently</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">💰</div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">₹2,847</div>
+                        <div class="text-gray-600">Total Spent</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">📱</div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">12</div>
+                        <div class="text-gray-600">Recharges</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">🎁</div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">₹127</div>
+                        <div class="text-gray-600">Cashback</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">⭐</div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">3</div>
+                        <div class="text-gray-600">Saved Numbers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions & Recent Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Quick Recharge -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Quick Recharge</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <div class="font-medium">+91 98765 43210</div>
+                            <div class="text-sm text-gray-600">Airtel • Last: ₹299</div>
+                        </div>
+                        <button class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Recharge</button>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <div class="font-medium">+91 87654 32109</div>
+                            <div class="text-sm text-gray-600">Jio • Last: ₹199</div>
+                        </div>
+                        <button class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Recharge</button>
+                    </div>
+                    <a href="recharge.html" class="block text-center text-primary hover:text-accent font-medium">+ Add New Number</a>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold">Recent Activity</h3>
+                    <a href="history.html" class="text-primary hover:text-accent text-sm">View All</a>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-green-600 text-sm">✓</span>
+                            </div>
+                            <div>
+                                <div class="font-medium">₹299 Recharge</div>
+                                <div class="text-sm text-gray-600">Dec 15, 2:30 PM</div>
+                            </div>
+                        </div>
+                        <div class="text-green-600 font-medium">Success</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-green-600 text-sm">✓</span>
+                            </div>
+                            <div>
+                                <div class="font-medium">₹199 Recharge</div>
+                                <div class="text-sm text-gray-600">Dec 14, 11:15 AM</div>
+                            </div>
+                        </div>
+                        <div class="text-green-600 font-medium">Success</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-red-600 text-sm">✗</span>
+                            </div>
+                            <div>
+                                <div class="font-medium">₹399 Recharge</div>
+                                <div class="text-sm text-gray-600">Dec 13, 9:45 AM</div>
+                            </div>
+                        </div>
+                        <div class="text-red-600 font-medium">Failed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Offers & Plans -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Special Offers -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Special Offers</h3>
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-r from-secondary to-green-600 text-white p-4 rounded-lg">
+                        <div class="font-bold">10% Cashback</div>
+                        <div class="text-sm opacity-90">On recharges above ₹200</div>
+                    </div>
+                    <div class="bg-gradient-to-r from-accent to-purple-600 text-white p-4 rounded-lg">
+                        <div class="font-bold">Free Data Boost</div>
+                        <div class="text-sm opacity-90">Extra 1GB on ₹299 plans</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Plans -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Popular Plans</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-3 border border-gray-200 rounded-lg">
+                        <div>
+                            <div class="font-medium">₹199 Plan</div>
+                            <div class="text-sm text-gray-600">1.5GB/day • 28 days</div>
+                        </div>
+                        <button class="text-primary hover:text-accent font-medium text-sm">Select</button>
+                    </div>
+                    <div class="flex justify-between items-center p-3 border border-gray-200 rounded-lg">
+                        <div>
+                            <div class="font-medium">₹299 Plan</div>
+                            <div class="text-sm text-gray-600">2GB/day • 28 days</div>
+                        </div>
+                        <button class="text-primary hover:text-accent font-medium text-sm">Select</button>
+                    </div>
+                    <a href="plans.html" class="block text-center text-primary hover:text-accent font-medium">View All Plans</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 MobileRecharge. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
