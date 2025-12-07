@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recharge — Mobile Recharge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-[color:var(--bg)] min-h-screen text-[color:var(--text)] font-sans">
+  <header>
+    <nav class="max-w-4xl mx-auto px-4 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-[color:var(--pp)] flex items-center justify-center text-white font-bold">MR</div>
+        <span class="text-lg font-semibold">Recharge</span>
+      </div>
+      <div><a href="dashboard.html" class="text-sm hover:underline">Dashboard</a></div>
+    </nav>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-12">
+    <section class="bg-[color:var(--card)] p-6 rounded-2xl shadow-sm border">
+      <h2 class="text-xl font-semibold mb-4">Recharge input</h2>
+
+      <form id="rechargeForm" class="space-y-3" onsubmit="return openPlans(event)">
+        <div>
+          <label class="text-sm block">Mobile number</label>
+          <input id="num" class="input" placeholder="10-digit mobile number" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-sm block">Operator</label>
+            <select id="operator" class="input">
+              <option value="Jio">Jio</option>
+              <option value="Airtel">Airtel</option>
+              <option value="Vi">Vi</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm block">Circle/State</label>
+            <select id="circle" class="input">
+              <option>Tamil Nadu</option>
+              <option>Karnataka</option>
+              <option>Kerala</option>
+              <option>Delhi</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button class="btn-primary" type="submit">Choose Plan</button>
+          <a class="btn-ghost" href="dashboard.html">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function openPlans(e){
+      e.preventDefault();
+      const num = document.getElementById('num').value.trim();
+      if (!/^[0-9]{10}$/.test(num)){
+        alert('Enter a valid 10-digit mobile number');
+        return false;
+      }
+      localStorage.setItem('recharge_mobile', num);
+      localStorage.setItem('recharge_operator', document.getElementById('operator').value);
+      window.location.href = 'plans.html';
+      return false;
+    }
+  </script>
+</body>
+</html>

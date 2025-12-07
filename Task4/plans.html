@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Plans — Mobile Recharge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-[color:var(--bg)] min-h-screen text-[color:var(--text)] font-sans">
+  <header>
+    <nav class="max-w-5xl mx-auto px-4 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-[color:var(--pp)] flex items-center justify-center text-white font-bold">MR</div>
+        <span class="text-lg font-semibold">Plans</span>
+      </div>
+      <div class="flex gap-3">
+        <a href="recharge.html" class="text-sm hover:underline">Back</a>
+        <a href="dashboard.html" class="text-sm hover:underline">Dashboard</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    <section class="mb-6 flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-extrabold">Select a plan</h2>
+        <p class="text-sm text-slate-500">Plans come from a mock API (or demo fallback). Click a plan to preview and proceed.</p>
+      </div>
+      <div id="selectionSummary" class="text-sm text-slate-600"></div>
+    </section>
+
+    <section id="plansContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- cards inserted here -->
+    </section>
+
+    <div id="loading" class="text-center text-slate-500 mt-6">Loading plans...</div>
+  </main>
+
+  <!-- modal -->
+  <div id="planModal" class="fixed inset-0 hidden items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/30" onclick="closeModal()"></div>
+    <div class="bg-[color:var(--card)] w-96 rounded-2xl p-5 shadow-lg border relative z-10">
+      <h3 id="modalTitle" class="text-xl font-semibold"></h3>
+      <p id="modalDesc" class="text-sm text-slate-600 mt-2"></p>
+
+      <div class="mt-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-[color:var(--pp)]" id="modalPrice"></div>
+        <div class="text-sm text-slate-500" id="modalValidity"></div>
+      </div>
+
+      <div class="mt-4">
+        <button id="proceedBtn" class="btn-primary w-full">Proceed to Payment</button>
+        <button onclick="closeModal()" class="btn-ghost w-full mt-3">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+</body>
+</html>

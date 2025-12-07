@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mobile Recharge — Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-[color:var(--bg)] min-h-screen text-[color:var(--text)] font-sans">
+  <header>
+    <nav class="max-w-4xl mx-auto px-4 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-[color:var(--pp)] flex items-center justify-center text-white font-bold">MR</div>
+        <span class="text-lg font-semibold">Mobile Recharge</span>
+      </div>
+      <div><a href="signup.html" class="text-sm hover:underline">Create account</a></div>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <article class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <section class="space-y-4">
+        <h1 class="text-3xl font-extrabold">Recharge in seconds</h1>
+        <p class="text-sm text-slate-600">Quickly choose plans, preview and simulate payment — beautiful pastel UI.</p>
+        <ul class="list-disc list-inside text-sm text-slate-600">
+          <li>Prepaid & Postpaid plans</li>
+          <li>Client-side validation</li>
+          <li>Plan preview & proceed</li>
+        </ul>
+      </section>
+
+      <section>
+        <form id="loginForm" class="bg-[color:var(--card)] p-6 rounded-2xl shadow-sm border" onsubmit="return validateLogin(event)">
+          <h2 class="text-xl font-semibold mb-4">Sign in</h2>
+
+          <label class="block text-sm">Email</label>
+          <input id="loginEmail" type="email" class="input" placeholder="you@example.com" />
+
+          <label class="block text-sm mt-3">Password</label>
+          <input id="loginPass" type="password" class="input" placeholder="••••••" />
+
+          <button class="btn-primary mt-4 w-full" type="submit">Sign in</button>
+
+          <p class="text-xs text-slate-500 mt-3 text-center">New? <a href="signup.html" class="text-[color:var(--pp)] font-medium">Create account</a></p>
+        </form>
+      </section>
+    </article>
+  </main>
+
+  <footer class="text-center text-xs text-slate-400 pb-6">© 2025 Mobile Recharge — Demo</footer>
+
+  <script src="js/validation.js"></script>
+</body>
+</html>
