@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Recharge Plans</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6 flex flex-col items-center">
+
+  <h1 class="text-4xl font-bold mb-8">Recharge Plans</h1>
+
+  <div id="plans-container" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-6xl">
+    <p>Loading plans...</p>
+  </div>
+
+  <!-- Popup -->
+  <div id="plan-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg p-6 w-80">
+      <h2 class="text-xl font-bold mb-2">Selected Plan</h2>
+      <div id="selected-plan"></div>
+      <button id="close-popup" class="mt-4 w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">Close</button>
+      <button id="proceed-btn" class="mt-2 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Proceed to Payment</button>
+    </div>
+  </div>
+
+  <script>
+    const apiUrl = "https://69383b2c4618a71d77cf75ba.mockapi.io/api/v1/plans";
+    const plansContainer = document.getElementById("plans-container");
+    const planPopup = document.getElementById("plan-popup");
+    const selectedPlanDiv = document.getElementById("selected-plan");
+    const closePopupBtn = document.getElementById("close-popup");
+
+    async function loadPlans() {
+      try {
+        const res = await fetch(apiUrl);
+        const plans = await res.json();
+        displayPlans(plans.slice(0, 20)); // show first 20 plans for clarity
+      } catch (error) {
+        plansContainer.innerHTML = "<p class='text-red-500'>Failed to load plans.</p>";
+        console.error(error);
+      }
+    }
+
+    function displayPlans(plans) {
+      plansContainer.innerHTML = "";
+      plans.forEach(plan => {
+        const card = document.createElement("div");
+        card.className = "bg-white p-4 rounded-lg shadow hover:shadow-lg transition cursor-pointer flex flex-col justify-between";
+
+        card.innerHTML = `
+          <h3 class="font-semibold text-lg mb-2">${plan.type}</h3>
+          <p><b>Price:</b> ₹${plan.price}</p>
+          <p><b>Validity:</b> ${plan.validity}</p>
+          <p><b>Data:</b> ${plan.data}</p>
+          <p class="text-gray-600 mb-2">${plan.description}</p>
+          <button class="bg-purple-600 text-white py-2 rounded hover:bg-purple-700 select-plan">Recharge</button>
+        `;
+
+        card.querySelector(".select-plan").addEventListener("click", () => showPlan(plan));
+        plansContainer.appendChild(card);
+      });
+    }
+
+    function showPlan(plan) {
+      selectedPlanDiv.innerHTML = `
+        <p><b>Type:</b> ${plan.type}</p>
+        <p><b>Price:</b> ₹${plan.price}</p>
+        <p><b>Validity:</b> ${plan.validity}</p>
+        <p><b>Data:</b> ${plan.data}</p>
+        <p>${plan.description}</p>
+      `;
+      planPopup.classList.remove("hidden");
+    }
+
+    closePopupBtn.addEventListener("click", () => {
+      planPopup.classList.add("hidden");
+    });
+
+    loadPlans();
+  </script>
+</body>
+</html>
