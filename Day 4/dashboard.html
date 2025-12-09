@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Mobile Recharge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-[#A97882] text-white p-6 flex justify-between items-center shadow-md">
+    <h1 class="text-3xl font-bold">Mobile Recharge</h1>
+    <a href="login.html" class="bg-white text-[#A97882] px-4 py-2 rounded hover:bg-gray-200 font-semibold">Logout</a>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 p-6">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Welcome, User!</h2>
+    <p class="mb-6 text-gray-600">Select a recharge plan below:</p>
+
+    <!-- Plans Grid -->
+    <div id="plansContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <p id="loadingText" class="text-gray-500 col-span-full text-center">Loading plans...</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#A97882] text-white p-4 text-center shadow-inner">
+    &copy; 2025 Mobile Recharge App
+  </footer>
+
+  <script>
+    const apiUrl = "https://69383b2c4618a71d77cf75ba.mockapi.io/api/v1/plans";
+    const plansContainer = document.getElementById("plansContainer");
+    const loadingText = document.getElementById("loadingText");
+
+    async function fetchPlans() {
+      try {
+        const response = await fetch(apiUrl);
+        const plans = await response.json();
+        loadingText.style.display = "none"; // remove loading text
+
+        plansContainer.innerHTML = plans.map(plan => `
+          <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition duration-300 flex flex-col justify-between">
+            <h3 class="text-xl font-bold mb-2 capitalize text-[#A97882]">${plan.type}</h3>
+            <p class="text-gray-700 mb-1">Price: <span class="font-semibold">₹${plan.price}</span></p>
+            <p class="text-gray-700 mb-1">Validity: ${plan.validity}</p>
+            <p class="text-gray-700 mb-3">Data: ${plan.data}</p>
+            <p class="text-gray-600 mb-4">${plan.description}</p>
+            <button class="bg-[#58545F] text-white px-4 py-2 rounded hover:bg-[#7a7580] recharge-btn font-semibold transition-colors duration-200" data-id="${plan.id}">Recharge</button>
+          </div>
+        `).join('');
+
+        // Add click event for all recharge buttons
+        document.querySelectorAll(".recharge-btn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const planId = e.target.dataset.id;
+            const selectedPlan = plans.find(p => p.id === planId);
+            alert(`You selected plan:\nType: ${selectedPlan.type}\nPrice: ₹${selectedPlan.price}\nValidity: ${selectedPlan.validity}\nData: ${selectedPlan.data}`);
+          });
+        });
+
+      } catch (error) {
+        console.error("Error fetching plans:", error);
+        plansContainer.innerHTML = `<p class="text-red-500 col-span-full text-center">Failed to load plans. Try again later.</p>`;
+      }
+    }
+
+    fetchPlans();
+  </script>
+
+</body>
+</html>
