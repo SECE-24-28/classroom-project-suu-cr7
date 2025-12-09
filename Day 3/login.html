@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Mobile Recharge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-10 rounded-lg shadow-md w-96">
+    <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
+    <form id="loginForm" class="flex flex-col gap-4">
+      <input type="text" id="username" placeholder="Username" required class="border p-2 rounded">
+      <input type="password" id="password" placeholder="Password" required class="border p-2 rounded">
+      <button type="submit" class="bg-[#A97882] text-white py-2 rounded hover:bg-[#58545F]">Login</button>
+    </form>
+    <p class="mt-4 text-center text-gray-500">Don't have an account? <a href="signup.html" class="text-purple-600 hover:underline">Sign Up</a></p>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // Dummy check
+      if(username === "user" && password === "1234"){
+        alert("Login successful!");
+        window.location.href = "dashboard.html"; // redirect to dashboard
+      } else {
+        alert("Invalid username or password!");
+      }
+    });
+  </script>
+
+</body>
+</html>

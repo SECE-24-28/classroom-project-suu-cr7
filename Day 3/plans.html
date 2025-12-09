@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recharge Plans</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen p-4">
+
+  <header class="bg-[#A97882] text-white py-4 shadow-md mb-6">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <h1 class="text-2xl font-bold">Recharge Plans</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:text-gray-200">Home</a>
+        <a href="recharge.html" class="hover:text-gray-200">Recharge</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white shadow-md rounded-lg p-6" data-type="Prepaid" data-price="199" data-validity="28 days" data-data="1.5GB/day">
+      <h2 class="text-xl font-bold mb-2">Prepaid</h2>
+      <p class="mb-1">Price: ₹199</p>
+      <p class="mb-1">Validity: 28 days</p>
+      <p class="mb-1">Data: 1.5GB/day</p>
+      <p class="mb-3">Unlimited calls + 100 SMS/day</p>
+      <button class="recharge-btn bg-[#58545F] hover:bg-[#A97882] text-white py-2 px-4 rounded-lg transition-colors duration-200">
+        Recharge
+      </button>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6" data-type="Prepaid" data-price="299" data-validity="28 days" data-data="2GB/day">
+      <h2 class="text-xl font-bold mb-2">Prepaid</h2>
+      <p class="mb-1">Price: ₹299</p>
+      <p class="mb-1">Validity: 28 days</p>
+      <p class="mb-1">Data: 2GB/day</p>
+      <p class="mb-3">Unlimited calls + 100 SMS/day</p>
+      <button class="recharge-btn bg-[#58545F] hover:bg-[#A97882] text-white py-2 px-4 rounded-lg transition-colors duration-200">
+        Recharge
+      </button>
+    </div>
+  </main>
+
+  <script>
+    // Select all recharge buttons
+    const buttons = document.querySelectorAll(".recharge-btn");
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const parent = e.target.closest("div");
+        const type = parent.dataset.type;
+        const price = parent.dataset.price;
+        const validity = parent.dataset.validity;
+        const data = parent.dataset.data;
+
+        alert(
+          `You selected this plan:\n\nType: ${type}\nPrice: ₹${price}\nValidity: ${validity}\nData: ${data}`
+        );
+      });
+    });
+  </script>
+
+</body>
+</html>

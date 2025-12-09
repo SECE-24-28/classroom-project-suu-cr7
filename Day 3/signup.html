@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Mobile Recharge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-10 rounded-lg shadow-md w-96">
+    <h1 class="text-2xl font-bold mb-6 text-center">Sign Up</h1>
+    <form id="signupForm" class="flex flex-col gap-4">
+      <input type="text" id="newUsername" placeholder="Username" required class="border p-2 rounded">
+      <input type="password" id="newPassword" placeholder="Password" required class="border p-2 rounded">
+      <input type="email" id="email" placeholder="Email" required class="border p-2 rounded">
+      <button type="submit" class="bg-[#A97882]  text-white py-2 rounded hover:bg-[#58545F]">Sign Up</button>
+    </form>
+    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="login.html" class="text-purple-600 hover:underline">Login</a></p>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const username = document.getElementById("newUsername").value;
+      const password = document.getElementById("newPassword").value;
+      const email = document.getElementById("email").value;
+
+      // Dummy signup alert
+      alert(`Account created!\nUsername: ${username}\nEmail: ${email}`);
+      window.location.href = "login.html"; // redirect to login
+    });
+  </script>
+
+</body>
+</html>
