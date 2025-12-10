@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .status-box {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            width: 80%;
+            max-width: 500px;
+        }
+        .server-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .success {
+            color: #4ade80;
+            font-weight: bold;
+        }
+        .error {
+            color: #f87171;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Test Page</h1>
+    <p>This page helps diagnose if your Vite development server is working correctly.</p>
+    
+    <div class="status-box">
+        <h3>Current Status:</h3>
+        <p id="status" class="success">Page loaded successfully ✅</p>
+        <p>Time: <span id="time"></span></p>
+    </div>
+    
+    <div class="server-info">
+        <h3>Server Information:</h3>
+        <p>If you can see this page, your Vite server is running!</p>
+        <p>React app should be available at: <code>/</code></p>
+    </div>
+    
+    <div style="margin-top: 30px;">
+        <a href="/" style="color: white; text-decoration: underline;">Go to React App</a>
+    </div>
+    
+    <script>
+        // Display current time
+        document.getElementById('time').textContent = new Date().toLocaleTimeString();
+        
+        // Log to console
+        console.log('📡 Test page loaded successfully');
+        console.log('🌐 URL:', window.location.href);
+        console.log('🕐 Time:', new Date().toLocaleString());
+        
+        // Check for common errors
+        try {
+            // Test if JavaScript is working
+            if (!window.localStorage) {
+                throw new Error('LocalStorage not available');
+            }
+            console.log('✅ JavaScript is working properly');
+        } catch (error) {
+            console.error('❌ JavaScript error:', error);
+            document.getElementById('status').textContent = 'Error: ' + error.message;
+            document.getElementById('status').className = 'error';
+        }
+    </script>
+</body>
+</html>
