@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharge Plans - Mobile Recharge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#58545F',
+                        secondary: '#A97882'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-blue-100">
+    <header class="bg-primary text-white shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <div class="bg-white w-8 h-8 rounded-full flex items-center justify-center mr-2">
+                        <span class="text-primary font-bold text-lg">M</span>
+                    </div>
+                    <span class="text-2xl font-bold">MobileRecharge</span>
+                </a>
+                <div class="space-x-4">
+                    <a href="dashboard.html" class="hover:text-secondary transition">Dashboard</a>
+                    <a href="recharge.html" class="hover:text-secondary transition">Recharge</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8 text-center">
+            <img src="prepo.jpeg" alt="Recharge Plans" class="mx-auto mb-4 max-w-xs rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-primary mb-4">Recharge Plans</h2>
+            
+            <!-- Plan Type Filter -->
+            <div class="flex justify-center space-x-4 mb-6">
+                <button onclick="filterPlans('prepaid')" id="prepaidBtn" 
+                        class="px-6 py-2 rounded-md bg-secondary text-white hover:bg-opacity-80 transition">
+                    Prepaid
+                </button>
+                <button onclick="filterPlans('postpaid')" id="postpaidBtn" 
+                        class="px-6 py-2 rounded-md bg-gray-300 text-gray-700 hover:bg-gray-400 transition">
+                    Postpaid
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="text-center py-8">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <p class="mt-2 text-gray-600">Loading plans...</p>
+        </div>
+
+        <!-- Plans Grid -->
+        <div id="plansGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            <!-- Plans will be loaded here -->
+        </div>
+
+        <!-- Plan Selection Modal -->
+        <div id="planModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+                <h3 class="text-xl font-bold text-primary mb-4">Confirm Plan Selection</h3>
+                <div id="selectedPlanDetails" class="space-y-2 mb-6">
+                    <!-- Selected plan details will be shown here -->
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="closePlanModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded">Cancel</button>
+                    <button onclick="proceedToRecharge()" class="flex-1 bg-primary text-white py-2 rounded">Proceed to Recharge</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allPlans = [];
+        let currentFilter = 'prepaid';
+        let selectedPlan = null;
+
+        // MockAPI endpoint
+        const API_URL = 'https://65f5b8e741d90c1c5e0a6f8b.mockapi.io/plans';
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check URL parameter for plan type
+            const urlParams = new URLSearchParams(window.location.search);
+            const planType = urlParams.get('type');
+            if (planType) {
+                currentFilter = planType;
+                updateFilterButtons();
+            }
+            
+            fetchPlans();
+        });
+
+        async function fetchPlans() {
+            try {
+                document.getElementById('loading').classList.remove('hidden');
+                document.getElementById('plansGrid').classList.add('hidden');
+                
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch plans');
+                }
+                
+                allPlans = await response.json();
+                displayPlans();
+                
+            } catch (error) {
+                console.error('Error fetching plans:', error);
+                // Fallback to local data if API fails
+                allPlans = getFallbackPlans();
+                displayPlans();
+            }
+        }
+
+        function getFallbackPlans() {
+            return [
+                {
+                    id: "1",
+                    type: "prepaid",
+                    price: 199,
+                    validity: "28 days",
+                    data: "1.5GB/day",
+                    description: "Unlimited calls + 100 SMS/day"
+                },
+                {
+                    id: "2",
+                    type: "prepaid",
+                    price: 299,
+                    validity: "28 days",
+                    data: "2GB/day",
+                    description: "Unlimited calls + 100 SMS/day"
+                },
+                {
+                    id: "3",
+                    type: "prepaid",
+                    price: 449,
+                    validity: "56 days",
+                    data: "2GB/day",
+                    description: "Unlimited calls + 100 SMS/day"
+                },
+                {
+                    id: "4",
+                    type: "prepaid",
+                    price: 599,
+                    validity: "84 days",
+                    data: "1.5GB/day",
+                    description: "Unlimited calls + 100 SMS/day"
+                },
+                {
+                    id: "5",
+                    type: "postpaid",
+                    price: 399,
+                    validity: "Monthly",
+                    data: "40GB",
+                    description: "Unlimited calls + 100 SMS/day"
+                },
+                {
+                    id: "6",
+                    type: "postpaid",
+                    price: 599,
+                    validity: "Monthly",
+                    data: "75GB",
+                    description: "Unlimited calls + 100 SMS/day"
+                },
+                {
+                    id: "7",
+                    type: "postpaid",
+                    price: 799,
+                    validity: "Monthly",
+                    data: "100GB",
+                    description: "Unlimited calls + 100 SMS/day + Netflix"
+                },
+                {
+                    id: "8",
+                    type: "prepaid",
+                    price: 149,
+                    validity: "24 days",
+                    data: "1GB/day",
+                    description: "Unlimited calls + 100 SMS/day"
+                }
+            ];
+        }
+
+        function displayPlans() {
+            const filteredPlans = allPlans.filter(plan => plan.type === currentFilter);
+            const plansGrid = document.getElementById('plansGrid');
+            
+            plansGrid.innerHTML = filteredPlans.map(plan => `
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">₹${plan.price}</h3>
+                        <span class="bg-secondary text-white px-2 py-1 rounded text-sm">${plan.type}</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-600"><strong>Validity:</strong> ${plan.validity}</p>
+                        <p class="text-gray-600"><strong>Data:</strong> ${plan.data}</p>
+                        <p class="text-gray-600 text-sm">${plan.description}</p>
+                    </div>
+                    <button onclick="selectPlan('${plan.id}')" 
+                            class="w-full bg-primary text-white py-2 rounded hover:bg-opacity-80 transition">
+                        Select Plan
+                    </button>
+                </div>
+            `).join('');
+            
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('plansGrid').classList.remove('hidden');
+        }
+
+        function filterPlans(type) {
+            currentFilter = type;
+            updateFilterButtons();
+            displayPlans();
+        }
+
+        function updateFilterButtons() {
+            const prepaidBtn = document.getElementById('prepaidBtn');
+            const postpaidBtn = document.getElementById('postpaidBtn');
+            
+            if (currentFilter === 'prepaid') {
+                prepaidBtn.className = 'px-6 py-2 rounded-md bg-secondary text-white hover:bg-opacity-80 transition';
+                postpaidBtn.className = 'px-6 py-2 rounded-md bg-gray-300 text-gray-700 hover:bg-gray-400 transition';
+            } else {
+                prepaidBtn.className = 'px-6 py-2 rounded-md bg-gray-300 text-gray-700 hover:bg-gray-400 transition';
+                postpaidBtn.className = 'px-6 py-2 rounded-md bg-secondary text-white hover:bg-opacity-80 transition';
+            }
+        }
+
+        function selectPlan(planId) {
+            selectedPlan = allPlans.find(plan => plan.id === planId);
+            
+            document.getElementById('selectedPlanDetails').innerHTML = `
+                <p><strong>Plan:</strong> ₹${selectedPlan.price}</p>
+                <p><strong>Type:</strong> ${selectedPlan.type.toUpperCase()}</p>
+                <p><strong>Validity:</strong> ${selectedPlan.validity}</p>
+                <p><strong>Data:</strong> ${selectedPlan.data}</p>
+                <p><strong>Benefits:</strong> ${selectedPlan.description}</p>
+            `;
+            
+            document.getElementById('planModal').classList.remove('hidden');
+        }
+
+        function closePlanModal() {
+            document.getElementById('planModal').classList.add('hidden');
+            selectedPlan = null;
+        }
+
+        function proceedToRecharge() {
+            if (selectedPlan) {
+                // Simulate payment processing
+                const transaction = {
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString(),
+                    amount: selectedPlan.price,
+                    plan: selectedPlan.description,
+                    type: selectedPlan.type,
+                    status: 'Success'
+                };
+                
+                // Store transaction
+                let transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+                transactions.unshift(transaction);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                
+                alert(`Payment Successful! ₹${selectedPlan.price} recharged successfully.`);
+                closePlanModal();
+                
+                // Redirect to dashboard to show transaction
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

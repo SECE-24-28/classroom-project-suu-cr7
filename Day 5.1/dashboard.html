@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mobile Recharge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#58545F',
+                        secondary: '#A97882'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-blue-100">
+    <header class="bg-primary text-white shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <div class="bg-white w-8 h-8 rounded-full flex items-center justify-center mr-2">
+                        <span class="text-primary font-bold text-lg">M</span>
+                    </div>
+                    <span class="text-2xl font-bold">MobileRecharge</span>
+                </a>
+                <div class="flex items-center space-x-4">
+                    <span id="userWelcome" class="text-secondary"></span>
+                    <button onclick="logout()" class="hover:text-secondary transition">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-primary mb-2">Dashboard</h2>
+            <p class="text-gray-600">Manage your mobile recharges and bill payments</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-primary mb-4">Quick Recharge</h3>
+                <p class="text-gray-600 mb-4">Recharge your mobile instantly</p>
+                <a href="recharge.html" class="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-80 transition">
+                    Recharge Now
+                </a>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-primary mb-4">View Plans</h3>
+                <p class="text-gray-600 mb-4">Browse available recharge plans</p>
+                <a href="plans.html" class="bg-secondary text-white px-4 py-2 rounded hover:bg-opacity-80 transition">
+                    View Plans
+                </a>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-primary mb-4">Transaction History</h3>
+                <p class="text-gray-600 mb-4">View your recharge history</p>
+                <button onclick="showHistory()" class="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-80 transition">
+                    View History
+                </button>
+            </div>
+        </div>
+
+        <div id="historySection" class="hidden bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold text-primary mb-4">Recent Transactions</h3>
+            <div id="transactionList" class="space-y-3">
+                <!-- Transactions will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in (removed automatic redirect)
+
+        // Display welcome message
+        const userName = localStorage.getItem('userName') || 'User';
+        document.getElementById('userWelcome').textContent = `Welcome, ${userName}`;
+
+        function logout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            window.location.href = 'login.html';
+        }
+
+        function showHistory() {
+            const historySection = document.getElementById('historySection');
+            const transactionList = document.getElementById('transactionList');
+            
+            // Get transactions from localStorage
+            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            
+            if (transactions.length === 0) {
+                transactionList.innerHTML = '<p class="text-gray-500 text-center py-4">No transactions found</p>';
+            } else {
+                transactionList.innerHTML = transactions.map(tx => `
+                    <div class="flex justify-between items-center p-3 border rounded">
+                        <div>
+                            <p class="font-medium">₹${tx.amount} - ${tx.type.toUpperCase()}</p>
+                            <p class="text-sm text-gray-600">${tx.plan}</p>
+                            <p class="text-xs text-gray-500">${tx.date}</p>
+                        </div>
+                        <span class="text-green-600 font-medium">${tx.status}</span>
+                    </div>
+                `).join('');
+            }
+            
+            historySection.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
