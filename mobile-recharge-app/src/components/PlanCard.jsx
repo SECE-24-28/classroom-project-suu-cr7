@@ -1,0 +1,31 @@
+const PlanCard = ({ plan }) => {
+  const handleRecharge = () => {
+    const phoneNumber = prompt('Enter your phone number:');
+    if (phoneNumber && phoneNumber.length === 10) {
+      window.location.href = `/payment?plan=${encodeURIComponent(JSON.stringify(plan))}&phone=${phoneNumber}&operator=Jio`;
+    } else {
+      alert('Please enter a valid 10-digit phone number');
+    }
+  };
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md border-2 border-transparent hover:border-primary hover:shadow-lg transition-all plan-card">
+      <div className="text-center">
+        <h3 className="text-2xl font-bold text-primary mb-2">₹{plan.price}</h3>
+        <div className="text-gray-600 space-y-1 mb-4">
+          <p>Validity: {plan.validity}</p>
+          <p>Data: {plan.data}</p>
+          <p className="text-sm">{plan.description}</p>
+        </div>
+        <button 
+          onClick={handleRecharge}
+          className="w-full bg-secondary text-white py-3 rounded-full hover:bg-opacity-90 transition-colors font-medium"
+        >
+          Recharge Now
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default PlanCard;
